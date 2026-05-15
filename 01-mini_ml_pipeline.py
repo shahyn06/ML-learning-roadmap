@@ -1,3 +1,4 @@
+
 import numpy as np 
 import matplotlib.pyplot as plt
 
@@ -47,10 +48,11 @@ class Pipeline :
         
         axes[0,0].grid(True , alpha = 0.3)
         axes[0,0].set_title('Original Data' , fontsize = 16)
-        axes[0,0].set_xlabel('Class A' , fontsize = 12)
-        axes[0,0].set_ylabel('Class B' , fontsize = 12)
+        axes[0,0].set_xlabel('Feature 1' , fontsize = 12)
+        axes[0,0].set_ylabel('Feature 2' , fontsize = 12)
         axes[0,0].axhline(y=0 , alpha = 0.4 , linestyle = '--')
         axes[0,0].axvline(x=0 , alpha = 0.4 , linestyle = '--')
+        axes[0,0].legend(fontsize = 12)
 		
 		#######plot(0,1) , Normalized Data ########
 		
@@ -61,7 +63,7 @@ class Pipeline :
                           color = 'cyan' ,
                           linewidths = 1.5 ,
                           edgecolors ='white',
-                          label = 'Class A')
+                          label = 'Feature 1')
         
         axes[0,1].scatter(normalize[15:,0] ,
                           normalize[15:,1] ,
@@ -70,14 +72,15 @@ class Pipeline :
                           color = 'red' ,
                           linewidths = 1.5,
                           edgecolors ='white',
-                          label = 'Class B')
+                          label = 'Feature 2')
         
         axes[0,1].grid(True , alpha = 0.3)
         axes[0,1].set_title('Normalized Data' , fontsize = 16)
-        axes[0,1].set_xlabel('Class A' , fontsize = 12)
-        axes[0,1].set_ylabel('Class B' , fontsize = 12)
+        axes[0,1].set_xlabel('Feature 1' , fontsize = 12)
+        axes[0,1].set_ylabel('Feature 2' , fontsize = 12)
         axes[0,1].axhline(y=0 , alpha = 0.4 , linestyle = '--')
         axes[0,1].axvline(x=0 , alpha = 0.4 , linestyle = '--')
+        axes[0,1].legend(fontsize = 12)
         
         #######plot(1,0) , Predictions VS Y-True ########
         
@@ -104,15 +107,28 @@ class Pipeline :
         axes[1,0].set_xlabel('sample index' , fontsize =12)
         axes[1,0].set_ylabel('pred , Y-True' , fontsize =12)
         axes[1,0].axhline(y=0 ,linestyle = '--' ,alpha = 0.4)
+        axes[1,0].legend(fontsize = 12)
         
         #######plot(1,1) , Histogram #######
         
-        axes[1,1].hist(data[:,0] , alpha = 0.5 , edgecolor = 'white' , color = 'cyan' , bins = 30)
-        axes[1,1].hist(data[:,1] , alpha = 0.5 , edgecolor = 'white' , color = 'red' , bins = 30)
+        axes[1,1].hist(normalize[:,0] ,
+                       alpha = 0.5 ,
+                       edgecolor = 'white' ,
+                       color = 'cyan' ,
+                       bins = 30 ,
+                       label = 'Feature 1')
+        
+        axes[1,1].hist(normalize[:,1] ,
+                       alpha = 0.5 ,
+                       edgecolor = 'white' ,
+                       color = 'red' ,
+                       bins = 30 ,
+                       label = 'Feature 2')
         axes[1,1].grid(True , axis = 'y' , alpha = 0.3)
         axes[1,1].set_title('Feature Distribution', fontsize=16)
         axes[1,1].set_xlabel('Feature Values', fontsize=12)
         axes[1,1].set_ylabel('Frequency', fontsize=12)
+        axes[1,1].legend(fontsize = 12)
         
         plt.tight_layout()
         plt.show()
@@ -138,15 +154,12 @@ weights = np.array([1.2,0.6])
 model = Pipeline(weights, label)
 #Normalized
 Normalized_data = model.z_scoring(dataset)
-print (F'Normalized Data : \n{Normalized_data}')
 
 #prediction
 predictions = model.prediction(dataset)
-print (f'predictions : {predictions}')
 
 #mse
-mse =model.MSE(dataset)
-print (f'MSE : {mse:.4f}')
+mse =model.MSE(dataset )
 
 #visual
 model.visual(dataset)
