@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 plt.style.use('dark_background')
-plt.figure(figsize=(14, 10))
+plt.figure(figsize=(10, 4) , dpi =200)
 np.random.seed(42)
 n_samples = 50
 
