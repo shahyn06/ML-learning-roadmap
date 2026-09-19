@@ -77,3 +77,11 @@ plt.grid(True  , alpha = 0.3)
 
 plt.tight_layout()
 plt.show()
+
+
+print(f'Final weights w1: {w1}, w2: {w2}, b: {b}')
+print(f'Training stopped after {i+1} epochs with final cost value: {cost_value[i]}')
+
+preddictions = np.where(z >= 0 , 1 , -1)
+accuracy = np.mean(preddictions == labels)
+print(f'Accuracy: {accuracy * 100:.2f}%')
